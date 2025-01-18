@@ -1,9 +1,9 @@
 {
-  "name": "speech-to-text",
+  "name": "speechtotext",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://hemantgovekar.github.io/speechtotext",
   "type": "module",
-  "homepage": "https://hemantgovekar.github.io/speech-to-text",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

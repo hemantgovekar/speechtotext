@@ -8,9 +8,8 @@ export const SpeechToText = () => {
     const [text, setText] = React.useState('');
     const [setshowHideButton, setSetshowHideButton] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('en-US');
-    const [convertToLanguage, setconvertToLanguage] = useState('en-US');
+    const [, setconvertToLanguage] = useState('en-US');
 
-    // const [spokenText, setSpokenText] = useState([]);
     const sr = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     const [spRec] = useState(new sr());
@@ -21,7 +20,6 @@ export const SpeechToText = () => {
         }
         return 'Language not found';
     };
-
 
     const handleStop = (): void => {
         setSetshowHideButton(false);
@@ -34,17 +32,13 @@ export const SpeechToText = () => {
         spRec.continuous = true;
         spRec.interimResults = true;
         spRec.lang = selectedLanguage || 'en-US';
-        // spRec.lang = 'en-US';
 
         spRec.start();
         spRec.onresult = (res: any) => {
-            // setSpokenText(prevText => [...prevText, res.results[0][0].transcript]);
             setText(Array.from(res.results)
                 .map((result: any) => result[0])
                 .map(txt => txt.transcript)
                 .join(''));
-            console.log(text);
-            // console.log("spokenText", spokenText);
         };
     }
 
@@ -54,11 +48,9 @@ export const SpeechToText = () => {
         setText('');
     };
 
-    const handleConvertLanguage = async (event: { target: { value: React.SetStateAction<string>; }; }) => {
-        setconvertToLanguage(event.target.value);
-
-
-    }
+    // const handleConvertLanguage = async (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    //     setconvertToLanguage(event.target.value);
+    // }
 
     const langTranslate = async (text: string) => {
         let encodedText = encodeURI(text);
@@ -72,12 +64,15 @@ export const SpeechToText = () => {
                 });
             const response = await res.json();
             setconvertToLanguage(response.responseData.translatedText);
-            // console.log(response.responseData.translatedText);
         } catch (error) {
         }
     }
 
     const handleCopy = () => {
+        if (text.length < 1) {
+            alert('Text is empty!');
+            return;
+        }
         const textarea = document.createElement('textarea');
         textarea.value = text;
         document.body.appendChild(textarea); textarea.select();
@@ -85,6 +80,11 @@ export const SpeechToText = () => {
         document.body.removeChild(textarea);
         alert('Text copied to clipboard!');
     };
+
+    const clearTextArea = () => {
+        setText('');
+        handleStop();
+    }
 
     return (
         <>
@@ -105,12 +105,23 @@ export const SpeechToText = () => {
             <br />
             <div className="textarea_card">
                 <div>
-                    <h3>{getLanguageName(selectedLanguage)}</h3>
+                    <div style={{ paddingLeft: "10px", fontWeight: "bold" }}>
+                        {getLanguageName(selectedLanguage)}
+
+                    </div>
                     <textarea rows={10} value={text} style={{ width: '500px' }} onChange={() => langTranslate(text)} />
                     <br />
-                    <i className="fas fa-copy" aria-label="Copy" style={{ cursor: 'pointer', fontSize: '25px', color: 'grey' }} onClick={handleCopy}></i>
+                    <span role="img" title="Copy" aria-label="Copy" style={{ cursor: 'pointer', fontSize: '25px', color: 'grey' }} onClick={handleCopy}>
+                        <button type='button' onClick={handleCopy}><i className="fas fa-copy"></i></button>
+                    </span>
+
+                    &nbsp;
+                    <span role="img" title="Clear" aria-label="Clear" style={{ cursor: 'pointer', fontSize: '25px', color: 'grey' }} onClick={clearTextArea}>
+                        <button type='button' onClick={clearTextArea}><i className="fas fa-eraser"></i></button>
+                    </span>
+
                 </div>
-                <div className="convert_btn" >
+                {/* <div className="convert_btn" >
                     <select onChange={handleConvertLanguage} >
                         {lang.map((item, index) => {
                             return <option key={index} value={Object.values(item)[0]}>
@@ -124,7 +135,7 @@ export const SpeechToText = () => {
                 <div>
                     <h3>{getLanguageName(convertToLanguage)}</h3>
                     <textarea rows={10} value={convertToLanguage} style={{ width: '500px' }} />
-                </div>
+                </div> */}
             </div>
             <br />
         </>
