@@ -10,8 +10,8 @@ export const SpeechToText = () => {
     const [selectedLanguage, setSelectedLanguage] = useState('en-US');
     const [convertToLanguage, setconvertToLanguage] = useState('en-US');
 
-    const [spokenText, setSpokenText] = useState([]);
-    const sr = window.speechRecognition || window.webkitSpeechRecognition;
+    // const [spokenText, setSpokenText] = useState([]);
+    const sr = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     const [spRec] = useState(new sr());
 
@@ -38,23 +38,23 @@ export const SpeechToText = () => {
 
         spRec.start();
         spRec.onresult = (res: any) => {
-            setSpokenText(prevText => [...prevText, res.results[0][0].transcript]);
+            // setSpokenText(prevText => [...prevText, res.results[0][0].transcript]);
             setText(Array.from(res.results)
                 .map((result: any) => result[0])
                 .map(txt => txt.transcript)
                 .join(''));
             console.log(text);
-            console.log("spokenText", spokenText);
+            // console.log("spokenText", spokenText);
         };
     }
 
-    const handleLanguageChange = (event) => {
+    const handleLanguageChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedLanguage(event.target.value);
         handleStop();
         setText('');
     };
 
-    const handleConvertLanguage = async (event) => {
+    const handleConvertLanguage = async (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setconvertToLanguage(event.target.value);
 
 
