@@ -88,40 +88,42 @@ export const SpeechToText = () => {
 
     return (
         <>
-            <h1>Speech To Text</h1>
-            <hr />
-            <div className="card">Select a language :&nbsp;
-                <select onChange={handleLanguageChange} >
-                    {lang.map((item, index) => {
-                        return <option key={index} value={Object.values(item)[0]}>
-                            {Object.keys(item)[0]}
-                        </option>
-                    })}
-                </select>
-                {!setshowHideButton ?
-                    <button type='submit' onClick={handleSpeak}> <i className="fas fa-microphone"></i></button> :
-                    <button type='button' onClick={handleStop}><i className="fas fa-stop"></i></button>}
+            <div className="header">
+                <h2>Speech To Text</h2>
             </div>
-            <br />
-            <div className="textarea_card">
-                <div>
-                    <div style={{ paddingLeft: "10px", fontWeight: "bold" }}>
-                        {getLanguageName(selectedLanguage)}
+            <div className="container">
 
-                    </div>
-                    <textarea rows={10} value={text} style={{ width: '500px' }} onChange={() => langTranslate(text)} />
-                    <br />
-                    <span role="img" title="Copy" aria-label="Copy" style={{ cursor: 'pointer', fontSize: '25px', color: 'grey' }} onClick={handleCopy}>
-                        <button type='button' onClick={handleCopy}><i className="fas fa-copy"></i></button>
-                    </span>
-
-                    &nbsp;
-                    <span role="img" title="Clear" aria-label="Clear" style={{ cursor: 'pointer', fontSize: '25px', color: 'grey' }} onClick={clearTextArea}>
-                        <button type='button' onClick={clearTextArea}><i className="fas fa-eraser"></i></button>
-                    </span>
-
+                <div className="card">Select a language :&nbsp;
+                    <select onChange={handleLanguageChange} >
+                        {lang.map((item, index) => {
+                            return <option key={index} value={Object.values(item)[0]}>
+                                {Object.keys(item)[0]}
+                            </option>
+                        })}
+                    </select>
+                    {!setshowHideButton ?
+                        <button type='submit' className="icon-button" onClick={handleSpeak}> <i className="fas fa-microphone"></i> Start</button> :
+                        <button type='button' className="icon-button" onClick={handleStop}><i className="fas fa-stop"></i> Stop</button>}
                 </div>
-                {/* <div className="convert_btn" >
+
+                <div className="textarea_card">
+                    <div>
+                        <div style={{ paddingLeft: "10px", fontWeight: "bold" }}>
+                            {getLanguageName(selectedLanguage)} &nbsp;
+                            <span role="img" title="Copy" aria-label="Copy" style={{ cursor: 'pointer', fontSize: '25px', color: 'grey' }} onClick={handleCopy}>
+                                <button type='button' className="icon-button" onClick={handleCopy}><i className="fas fa-copy">  </i> Copy</button>
+                            </span>
+                            &nbsp;
+                            <span role="img" title="Clear" aria-label="Clear" style={{ cursor: 'pointer', fontSize: '25px', color: 'grey' }} onClick={clearTextArea}>
+                                <button type='button' className="icon-button" onClick={clearTextArea}><i className="fas fa-eraser"></i> Clear</button>
+                            </span>
+                        </div>
+                        <div>
+                            <textarea rows={25} value={text} onChange={() => langTranslate(text)} />
+                        </div>
+                        <br />
+                    </div>
+                    {/* <div className="convert_btn" >
                     <select onChange={handleConvertLanguage} >
                         {lang.map((item, index) => {
                             return <option key={index} value={Object.values(item)[0]}>
@@ -136,8 +138,9 @@ export const SpeechToText = () => {
                     <h3>{getLanguageName(convertToLanguage)}</h3>
                     <textarea rows={10} value={convertToLanguage} style={{ width: '500px' }} />
                 </div> */}
+                </div>
             </div>
-            <br />
+
         </>
     )
 }
