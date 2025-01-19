@@ -7,7 +7,7 @@ body {
   align-items: center;
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
-  margin: 0;
+  margin: 10;
   padding: 0;
 
   height: 100vh;
@@ -16,13 +16,13 @@ body {
 .header {
   display: flex;
   justify-content: center;
-  border: 1px solid #ccc;
+
 }
 
 /* Container and Card Styles */
 .container {
-  margin: 0 auto;
-  padding: 20px;
+  padding: 5px;
+  margin: 10px;
 }
 
 .card {
@@ -86,7 +86,13 @@ select {
   margin-right: 10px;
 }
 
+.textarea_card_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  /* gap: 20px; */
 
+}
 
 /* Utility Classes */
 .hidden {
@@ -94,12 +100,21 @@ select {
 }
 
 .textarea_card {
+  width: 100%;
+  margin: 5px;
+}
 
-  border: 1px sold green;
+.translate_container {
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Center items vertically */
 }
 
 .convert_btn {
-  border: '1px solid red';
+  width: 100%;
   margin: 5px;
-  padding: 5px;
 }
